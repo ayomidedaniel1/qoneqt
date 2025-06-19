@@ -8,15 +8,16 @@ A simple, clean todo app
 - Mark todos as done/undo
 - Edit todo titles inline
 - Delete todos
-- Persistent storage with AsyncStorage
+- Persistent storage with AsyncStoragex
 
 ## 🛠 Setup
 
 ```bash
-npx create-expo-app todo-app
-cd todo-app
-npm install expo-router zustand @react-native-async-storage/async-storage
-npx expo-router@latest init
+git clone https://github.com/ayomidedaniel1/qoneqt.git
+
+cd qoneqt
+
+npm install
 
 Then start the app:
 
