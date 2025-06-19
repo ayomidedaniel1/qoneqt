@@ -1,3 +1,4 @@
+import { showToast } from '@/lib/toast';
 import { useTodoStore } from '@/store/todoStore';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -16,19 +17,20 @@ export default function NewTodoScreen() {
   const addTodo = useTodoStore((state) => state.addTodo);
   const router = useRouter();
 
-  function handleAddTodo() {
+  const handleAddTodo = () => {
     if (!title.trim()) {
       Alert.alert('Todo cannot be empty');
       return;
     }
 
     addTodo(title);
+    showToast('success', 'You have added a new task');
     router.back();
-  }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Add New Todo</Text>
+      <Text style={styles.heading}>Add New Task</Text>
 
       <TextInput
         style={styles.input}

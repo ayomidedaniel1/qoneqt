@@ -1,4 +1,4 @@
-// components/TodoItem.tsx
+import { showToast } from '@/lib/toast';
 import { TodoItemProps } from '@/types';
 import { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -10,6 +10,7 @@ export function TodoItem({ item, onToggle, onDelete, onEdit }: TodoItemProps) {
   const handleSave = () => {
     if (newTitle.trim()) {
       onEdit(item.id, newTitle.trim());
+      showToast('success', 'Task updated');
       setIsEditing(false);
     }
   };
@@ -49,14 +50,20 @@ export function TodoItem({ item, onToggle, onDelete, onEdit }: TodoItemProps) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => onToggle(item.id)}
+              onPress={() => {
+                onToggle(item.id);
+                showToast('success', item.done ? 'Task marked as undone' : 'Task completed');
+              }}
               style={[styles.btn, styles.doneBtn]}
             >
               <Text style={styles.btnText}>{item.done ? 'Undo' : 'Done'}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => onDelete(item.id)}
+              onPress={() => {
+                onDelete(item.id);
+                showToast('success', 'Task deleted');
+              }}
               style={[styles.btn, styles.deleteBtn]}
             >
               <Text style={styles.btnText}>Delete</Text>

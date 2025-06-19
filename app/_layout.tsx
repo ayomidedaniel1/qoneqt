@@ -2,6 +2,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -20,6 +21,7 @@ export default function RootLayout() {
         }}
       />
       <StatusBar style="dark" />
+      <Toast />
     </>
   );
 }

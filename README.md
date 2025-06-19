@@ -18,7 +18,9 @@ git clone https://github.com/ayomidedaniel1/qoneqt.git
 cd qoneqt
 
 npm install
+```
 
+```bash
 Then start the app:
 
 npm run start

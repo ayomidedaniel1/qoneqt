@@ -18,22 +18,43 @@ export default function HomeScreen() {
 
   const router = useRouter();
 
+  const handleAddTodo = () => router.push('/new');
+
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>My Todos</Text>
+      <Text style={styles.heading}>My Tasks</Text>
 
-      <FlatList
-        data={todos}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TodoItem item={item} onToggle={toggleTodo} onDelete={deleteTodo} onEdit={updateTodo} />
-        )}
-        contentContainerStyle={{ paddingBottom: 100 }}
-      />
+      {todos.length === 0 ? (
+        <View style={styles.emptyState}>
+          <Text style={styles.emoji}>📝</Text>
+          <Text style={styles.emptyText}>No tasks yet</Text>
+          <Text style={styles.emptySub}>Tap the + button to add one</Text>
 
-      <TouchableOpacity style={styles.fab} onPress={() => router.push('/new')}>
-        <Text style={styles.fabText}>+</Text>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={handleAddTodo} style={styles.addBtn}>
+            <Text style={styles.addBtnText}>Add First Task</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <FlatList
+          data={todos}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TodoItem
+              item={item}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+              onEdit={updateTodo}
+            />
+          )}
+          contentContainerStyle={{ paddingBottom: 100 }}
+        />
+      )}
+
+      {todos.length !== 0 && (
+        <TouchableOpacity style={styles.fab} onPress={handleAddTodo}>
+          <Text style={styles.fabText}>+</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -66,4 +87,37 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
   },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  emoji: {
+    fontSize: 48,
+    marginBottom: 12,
+  },
+  emptyText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 4,
+    color: '#333',
+  },
+  emptySub: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 20,
+  },
+  addBtn: {
+    backgroundColor: '#2ACE99',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  addBtnText: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+
 });
